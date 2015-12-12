@@ -26,6 +26,7 @@ import org.blissroms.systemui.qs.tiles.UsbTetherTile
 import org.blissroms.systemui.qs.tiles.SoundTile
 import org.blissroms.systemui.qs.tiles.RefreshRateTile
 import org.blissroms.systemui.qs.tiles.VolumeTile
+import org.blissroms.systemui.qs.tiles.AmbientDisplayTile
 
 import dagger.Binds
 import dagger.Module
@@ -82,4 +83,10 @@ interface BlissQSModule {
     @IntoMap
     @StringKey(VolumeTile.TILE_SPEC)
     fun bindVolumeTile(volumeTile: VolumeTile): QSTileImpl<*>
+
+    /** Inject AmbientDisplayTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(AmbientDisplayTile.TILE_SPEC)
+    fun bindAmbientDisplayTile(ambientDisplayTile: AmbientDisplayTile): QSTileImpl<*>
 }
