@@ -27,6 +27,7 @@ import org.blissroms.systemui.qs.tiles.DataSwitchTile
 import org.blissroms.systemui.qs.tiles.SoundTile
 import org.blissroms.systemui.qs.tiles.RefreshRateTile
 import org.blissroms.systemui.qs.tiles.VolumeTile
+import org.blissroms.systemui.qs.tiles.CompassTile
 
 import dagger.Binds
 import dagger.Module
@@ -47,6 +48,12 @@ interface BlissQSModule {
     @IntoMap
     @StringKey(CaffeineTile.TILE_SPEC)
     fun bindCaffeineTile(caffeineTile: CaffeineTile): QSTileImpl<*>
+
+    /** Inject CompassTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(CompassTile.TILE_SPEC)
+    fun bindCompassTile(compassTile: CompassTile): QSTileImpl<*>
 
     /** Inject DataSwitchTile into tileMap in QSModule */
     @Binds
