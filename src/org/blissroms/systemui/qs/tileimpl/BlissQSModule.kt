@@ -28,6 +28,7 @@ import org.blissroms.systemui.qs.tiles.RefreshRateTile
 import org.blissroms.systemui.qs.tiles.VolumeTile
 import org.blissroms.systemui.qs.tiles.AmbientDisplayTile
 import org.blissroms.systemui.qs.tiles.PowerShareTile
+import org.blissroms.systemui.qs.tiles.ReadingModeTile
 
 import dagger.Binds
 import dagger.Module
@@ -96,4 +97,10 @@ interface BlissQSModule {
     @IntoMap
     @StringKey(PowerShareTile.TILE_SPEC)
     fun bindPowerShareTile(powerShareTile: PowerShareTile): QSTileImpl<*>
+
+    /** Inject ReadingModeTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(ReadingModeTile.TILE_SPEC)
+    fun bindReadingModeTile(readingModeTile: ReadingModeTile): QSTileImpl<*>
 }
