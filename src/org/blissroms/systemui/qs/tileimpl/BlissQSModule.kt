@@ -27,6 +27,7 @@ import org.blissroms.systemui.qs.tiles.SoundTile
 import org.blissroms.systemui.qs.tiles.RefreshRateTile
 import org.blissroms.systemui.qs.tiles.VolumeTile
 import org.blissroms.systemui.qs.tiles.AmbientDisplayTile
+import org.blissroms.systemui.qs.tiles.PowerShareTile
 
 import dagger.Binds
 import dagger.Module
@@ -89,4 +90,10 @@ interface BlissQSModule {
     @IntoMap
     @StringKey(AmbientDisplayTile.TILE_SPEC)
     fun bindAmbientDisplayTile(ambientDisplayTile: AmbientDisplayTile): QSTileImpl<*>
+
+    /** Inject PowerShareTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(PowerShareTile.TILE_SPEC)
+    fun bindPowerShareTile(powerShareTile: PowerShareTile): QSTileImpl<*>
 }

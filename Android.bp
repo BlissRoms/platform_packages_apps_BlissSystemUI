@@ -46,6 +46,7 @@ android_library {
     static_libs: [
         "BlissSystemUI-res",
         "SystemUI-core",
+	"vendor.lineage.powershare-V1.0-java",
     ],
     manifest: "AndroidManifest.xml",
     kotlincflags: ["-Xjvm-default=enable"],
