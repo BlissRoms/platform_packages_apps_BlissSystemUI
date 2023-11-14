@@ -38,6 +38,7 @@ import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.qs.QSTile.State;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.logging.QSLogger;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
@@ -84,11 +85,12 @@ public final class AODTile extends QSTileImpl<State> implements
         MetricsLogger metricsLogger,
         StatusBarStateController statusBarStateController,
         ActivityStarter activityStarter,
+        QsEventLogger qsEventLogger,
         QSLogger qsLogger,
         SecureSettings secureSettings,
         BatteryController batteryController
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
+        super(host, qsEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
         mSecureSettings = secureSettings;
         mBatteryController = batteryController;
