@@ -37,6 +37,7 @@ import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.SettingObserver;
 import com.android.systemui.qs.logging.QSLogger;
@@ -60,6 +61,7 @@ public class HeadsUpTile extends QSTileImpl<BooleanState> {
 
     @Inject
     public HeadsUpTile(
+            QsEventLogger qsEventLogger,
             QSHost host,
             @Background Looper backgroundLooper,
             @Main Handler mainHandler,
@@ -71,7 +73,7 @@ public class HeadsUpTile extends QSTileImpl<BooleanState> {
             UserTracker userTracker,
             GlobalSettings globalSettings
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
+        super(host, qsEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
 
         mSetting = new SettingObserver(globalSettings, mHandler,

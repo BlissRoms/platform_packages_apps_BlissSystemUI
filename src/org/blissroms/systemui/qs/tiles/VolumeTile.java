@@ -31,6 +31,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
 import com.android.systemui.R;
@@ -52,6 +53,7 @@ public class VolumeTile extends QSTileImpl<BooleanState> {
 
     @Inject
     public VolumeTile(
+            QsEventLogger qsEventLogger,
             QSHost host,
             @Background Looper backgroundLooper,
             @Main Handler mainHandler,
@@ -61,7 +63,7 @@ public class VolumeTile extends QSTileImpl<BooleanState> {
             ActivityStarter activityStarter,
             QSLogger qsLogger
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
+        super(host, qsEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
     }
 

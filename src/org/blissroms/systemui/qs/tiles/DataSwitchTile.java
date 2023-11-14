@@ -38,6 +38,7 @@ import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.logging.QSLogger;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
@@ -75,6 +76,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
 
     @Inject
     public DataSwitchTile(
+            QsEventLogger qsEventLogger,
             QSHost host,
             @Background Looper backgroundLooper,
             @Main Handler mainHandler,
@@ -86,7 +88,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
             BroadcastDispatcher broadcastDispatcher,
             KeyguardStateController keyguardStateController
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
+        super(host, qsEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
         mSubscriptionManager = SubscriptionManager.from(host.getContext());
         mTelephonyManager = TelephonyManager.from(host.getContext());
