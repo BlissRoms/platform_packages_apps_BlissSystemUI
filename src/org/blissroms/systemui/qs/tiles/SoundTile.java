@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.systemui.Dependency;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
@@ -59,6 +60,7 @@ public class SoundTile extends QSTileImpl<BooleanState> {
 
     @Inject
     public SoundTile(
+            QsEventLogger qsEventLogger,
             QSHost host,
             @Background Looper backgroundLooper,
             @Main Handler mainHandler,
@@ -68,7 +70,7 @@ public class SoundTile extends QSTileImpl<BooleanState> {
             ActivityStarter activityStarter,
             QSLogger qsLogger
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
+        super(host, qsEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mReceiver = new BroadcastReceiver() {

@@ -44,6 +44,7 @@ import com.android.systemui.plugins.ActivityStarter
 import com.android.systemui.plugins.FalsingManager
 import com.android.systemui.qs.logging.QSLogger
 import com.android.systemui.qs.tileimpl.QSTileImpl
+import com.android.systemui.qs.QsEventLogger
 import com.android.systemui.qs.QSHost
 import com.android.systemui.util.settings.SystemSettings
 
@@ -51,6 +52,7 @@ import javax.inject.Inject
 
 class RefreshRateTile @Inject constructor(
     host: QSHost,
+    qsEventLogger: QsEventLogger,
     @Background backgroundLooper: Looper,
     @Main private val mainHandler: Handler,
     falsingManager: FalsingManager,
@@ -61,6 +63,7 @@ class RefreshRateTile @Inject constructor(
     private val systemSettings: SystemSettings,
 ): QSTileImpl<State>(
     host,
+    qsEventLogger,
     backgroundLooper,
     mainHandler,
     falsingManager,
