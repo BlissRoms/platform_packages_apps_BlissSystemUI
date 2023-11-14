@@ -32,12 +32,15 @@ import com.android.systemui.qs.dagger.QSModule;
 import com.android.systemui.recents.Recents;
 import com.android.systemui.recents.RecentsImplementation;
 import com.android.systemui.rotationlock.RotationLockModule;
+import com.android.systemui.scene.SceneContainerFrameworkModule;
 import com.android.systemui.screenshot.ReferenceScreenshotModule;
+import com.android.systemui.settings.dagger.MultiUserUtilsModule;
 import com.android.systemui.shade.NotificationShadeWindowControllerImpl;
 import com.android.systemui.shade.ShadeController;
 import com.android.systemui.shade.ShadeControllerImpl;
 import com.android.systemui.shade.ShadeExpansionStateManager;
 import com.android.systemui.statusbar.CommandQueue;
+import com.android.systemui.statusbar.KeyboardShortcutsModule;
 import com.android.systemui.statusbar.NotificationLockscreenUserManager;
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl;
 import com.android.systemui.statusbar.NotificationShadeWindowController;
@@ -92,10 +95,12 @@ import dagger.Provides;
         BatterySaverModule.class,
         GestureModule.class,
         MediaModule.class,
+        MultiUserUtilsModule.class,
         PowerModule.class,
         QSModule.class,
         ReferenceScreenshotModule.class,
         RotationLockModule.class,
+        SceneContainerFrameworkModule.class,
         StatusBarEventsModule.class,
         StartCentralSurfacesModule.class,
         VolumeModule.class
