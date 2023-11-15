@@ -23,7 +23,6 @@ import org.blissroms.systemui.qs.tiles.CaffeineTile
 import org.blissroms.systemui.qs.tiles.HeadsUpTile
 import org.blissroms.systemui.qs.tiles.SyncTile
 import org.blissroms.systemui.qs.tiles.UsbTetherTile
-import org.blissroms.systemui.qs.tiles.DataSwitchTile
 import org.blissroms.systemui.qs.tiles.SoundTile
 import org.blissroms.systemui.qs.tiles.RefreshRateTile
 import org.blissroms.systemui.qs.tiles.VolumeTile
@@ -47,12 +46,6 @@ interface BlissQSModule {
     @IntoMap
     @StringKey(CaffeineTile.TILE_SPEC)
     fun bindCaffeineTile(caffeineTile: CaffeineTile): QSTileImpl<*>
-
-    /** Inject DataSwitchTile into tileMap in QSModule */
-    @Binds
-    @IntoMap
-    @StringKey(DataSwitchTile.TILE_SPEC)
-    fun bindDataSwitchTile(dataSwitchTile: DataSwitchTile): QSTileImpl<*>
 
     /** Inject HeadsUpTile into tileMap in QSModule */
     @Binds
