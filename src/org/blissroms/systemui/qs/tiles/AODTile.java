@@ -26,12 +26,12 @@ import android.os.Looper;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.systemui.R;
+import com.android.systemui.animation.Expandable;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.plugins.ActivityStarter;
@@ -140,7 +140,7 @@ public final class AODTile extends QSTileImpl<State> implements
     }
 
     @Override
-    public void handleClick(@Nullable View view) {
+    public void handleClick(@Nullable Expandable expandable) {
         final DozeState newState;
         switch (getDozeState()) {
             case OFF:
@@ -203,12 +203,12 @@ public final class AODTile extends QSTileImpl<State> implements
         if (mListening == listening) return;
         mListening = listening;
         if (mListening) {
-            mSecureSettings.registerContentObserverForUser(
+            mSecureSettings.registerContentObserverForUserSync(
                 Settings.Secure.DOZE_ALWAYS_ON, mObserver, UserHandle.USER_ALL);
-            mSecureSettings.registerContentObserverForUser(
+            mSecureSettings.registerContentObserverForUserSync(
                 Settings.Secure.DOZE_ON_CHARGE, mObserver, UserHandle.USER_ALL);
         } else {
-            mSecureSettings.unregisterContentObserver(mObserver);
+            mSecureSettings.unregisterContentObserverSync(mObserver);
         }
     }
 }

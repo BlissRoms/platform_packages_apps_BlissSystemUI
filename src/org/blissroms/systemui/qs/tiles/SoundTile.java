@@ -27,11 +27,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings.Global;
 import android.service.quicksettings.Tile;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.android.internal.logging.MetricsLogger;
+import com.android.systemui.animation.Expandable;
 import com.android.systemui.Dependency;
 import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
@@ -103,12 +103,12 @@ public class SoundTile extends QSTileImpl<BooleanState> {
     }
 
     @Override
-    protected void handleClick(@Nullable View view) {
+    protected void handleClick(@Nullable Expandable expandable) {
         updateState();
     }
 
     @Override
-    public void handleLongClick(@Nullable View view) {
+    public void handleLongClick(@Nullable Expandable expandable) {
         mAudioManager.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
     }
 

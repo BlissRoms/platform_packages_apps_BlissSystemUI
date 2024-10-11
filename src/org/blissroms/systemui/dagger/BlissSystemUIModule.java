@@ -13,6 +13,7 @@ import android.content.Context;
 import android.hardware.SensorPrivacyManager;
 
 import com.android.keyguard.KeyguardViewController;
+import com.android.systemui.CoreStartable;
 import com.android.systemui.ScreenDecorationsModule;
 import com.android.systemui.accessibility.SystemActionsModule;
 import com.android.systemui.battery.BatterySaverModule;
@@ -21,6 +22,10 @@ import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel;
 import com.android.systemui.dock.DockManager;
 import com.android.systemui.dock.DockManagerImpl;
 import com.android.systemui.doze.DozeHost;
+import com.android.systemui.keyboard.shortcut.ShortcutHelperModule;
+import com.android.systemui.keyguard.ui.composable.blueprint.DefaultBlueprintModule;
+import com.android.systemui.keyguard.ui.view.layout.blueprints.KeyguardBlueprintModule;
+import com.android.systemui.keyguard.ui.view.layout.sections.KeyguardSectionsModule;
 import com.android.systemui.media.dagger.MediaModule;
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
@@ -40,12 +45,15 @@ import com.android.systemui.screenshot.ReferenceScreenshotModule;
 import com.android.systemui.settings.MultiUserUtilsModule;
 import com.android.systemui.shade.NotificationShadeWindowControllerImpl;
 import com.android.systemui.shade.ShadeModule;
+import com.android.systemui.startable.Dependencies;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.KeyboardShortcutsModule;
 import com.android.systemui.statusbar.NotificationLockscreenUserManager;
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl;
 import com.android.systemui.statusbar.NotificationShadeWindowController;
+import com.android.systemui.statusbar.SysuiStatusBarStateController;
 import com.android.systemui.statusbar.dagger.StartCentralSurfacesModule;
+import com.android.systemui.statusbar.phone.CentralSurfaces;
 import com.android.systemui.statusbar.phone.DozeServiceHost;
 import com.android.systemui.statusbar.phone.HeadsUpModule;
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager;
@@ -60,6 +68,7 @@ import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl;
 import com.android.systemui.toast.ToastModule;
 import com.android.systemui.unfold.SysUIUnfoldStartableModule;
 import com.android.systemui.unfold.UnfoldTransitionModule;
+import com.android.systemui.util.kotlin.SysUICoroutinesModule;
 import com.android.systemui.volume.dagger.VolumeModule;
 import com.android.systemui.wallpapers.dagger.WallpaperModule;
 
@@ -68,6 +77,11 @@ import org.blissroms.systemui.qs.tileimpl.BlissQSModule;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+
+import dagger.multibindings.ClassKey;
+import dagger.multibindings.IntoMap;
+
+import java.util.Set;
 
 import javax.inject.Named;
 
@@ -91,9 +105,12 @@ import javax.inject.Named;
         BatterySaverModule.class,
         CollapsedStatusBarFragmentStartableModule.class,
         ConnectingDisplayViewModel.StartableModule.class,
+        DefaultBlueprintModule.class,
         GestureModule.class,
         HeadsUpModule.class,
         KeyboardShortcutsModule.class,
+        KeyguardBlueprintModule.class,
+        KeyguardSectionsModule.class,
         MediaModule.class,
         MediaMuteAwaitConnectionCli.StartableModule.class,
         MultiUserUtilsModule.class,
@@ -110,11 +127,13 @@ import javax.inject.Named;
         ShadeModule.class,
         StartCentralSurfacesModule.class,
         SceneContainerFrameworkModule.class,
+        SysUICoroutinesModule.class,
         SysUIUnfoldStartableModule.class,
         UnfoldTransitionModule.Startables.class,
         ToastModule.class,
         VolumeModule.class,
         WallpaperModule.class,
+        ShortcutHelperModule.class,
         BlissQSModule.class
 })
 public abstract class BlissSystemUIModule {
@@ -189,4 +208,13 @@ public abstract class BlissSystemUIModule {
 
     @Binds
     abstract DozeHost provideDozeHost(DozeServiceHost dozeServiceHost);
+
+    /** */
+    @Provides
+    @IntoMap
+    @Dependencies
+    @ClassKey(SysuiStatusBarStateController.class)
+    static Set<Class<? extends CoreStartable>> providesStatusBarStateControllerDeps() {
+        return Set.of(CentralSurfaces.class);
+    }
 }
