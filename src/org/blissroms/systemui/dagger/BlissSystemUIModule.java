@@ -15,7 +15,9 @@ import android.hardware.SensorPrivacyManager;
 import com.android.keyguard.KeyguardViewController;
 import com.android.systemui.CoreStartable;
 import com.android.systemui.ScreenDecorationsModule;
+import com.android.systemui.accessibility.AccessibilityModule;
 import com.android.systemui.accessibility.SystemActionsModule;
+import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule;
 import com.android.systemui.battery.BatterySaverModule;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel;
@@ -43,6 +45,7 @@ import com.android.systemui.rotationlock.RotationLockNewModule;
 import com.android.systemui.scene.SceneContainerFrameworkModule;
 import com.android.systemui.screenshot.ReferenceScreenshotModule;
 import com.android.systemui.settings.MultiUserUtilsModule;
+import com.android.systemui.settings.UserTracker;
 import com.android.systemui.shade.NotificationShadeWindowControllerImpl;
 import com.android.systemui.shade.ShadeModule;
 import com.android.systemui.startable.Dependencies;
@@ -101,6 +104,8 @@ import javax.inject.Named;
  * SystemUI code that variants of SystemUI _must_ include to function correctly.
  */
 @Module(includes = {
+        AccessibilityModule.class,
+        AccessibilityRepositoryModule.class,
         AospPolicyModule.class,
         BatterySaverModule.class,
         CollapsedStatusBarFragmentStartableModule.class,
@@ -161,9 +166,9 @@ public abstract class BlissSystemUIModule {
     @Provides
     @SysUISingleton
     static IndividualSensorPrivacyController provideIndividualSensorPrivacyController(
-            SensorPrivacyManager sensorPrivacyManager) {
-        IndividualSensorPrivacyController spC = new IndividualSensorPrivacyControllerImpl(
-                sensorPrivacyManager);
+            SensorPrivacyManager sensorPrivacyManager, UserTracker userTracker) {
+        IndividualSensorPrivacyController spC =
+                new IndividualSensorPrivacyControllerImpl(sensorPrivacyManager, userTracker);
         spC.init();
         return spC;
     }
